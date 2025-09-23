@@ -60,7 +60,6 @@ class PropertyController extends Controller
                 'partPayed' => 'nullable|integer|max:255',
                 'countryId' => 'required|integer',
                 'codePostal' => 'nullable|string|max:20',
-
                 'salleBain' => 'nullable|integer|min:0',
                 'cuisine' => 'nullable|integer|min:0',
                 'garage' => 'nullable|integer|min:0',
@@ -102,7 +101,7 @@ class PropertyController extends Controller
                     Storage::disk('public')->put($path, $decodedImage);
 
                     ImageProperty::create([
-                        'nom' => $img['nom'],
+                        'nom' => $img['data'],
                         'path' => $path,
                         'maison_id' => $property->id
                     ]);

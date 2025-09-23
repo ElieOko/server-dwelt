@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('communeId')->nullable();
             $table->unsignedBigInteger('propertyId')->nullable();
             $table->unsignedBigInteger('statusPropertyId')->nullable();
-            $table->boolean('isDisponible')->default(true);
+            $table->boolean('isDisponible')->nullable()->default(true);
             $table->string('superficie')->nullable();
             $table->decimal('prix', 15, 2);
             $table->string('partPayed')->nullable();

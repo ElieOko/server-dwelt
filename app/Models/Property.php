@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ImageProperty;
 use Illuminate\Database\Eloquent\Model;
 
 class Property extends Model
@@ -30,7 +31,6 @@ class Property extends Model
     ];
 
     protected $casts = [
-        'piece' => 'array',
         'caracteristique' => 'array',
         'isDisponible' => 'boolean',
         'prix' => 'decimal:2'
@@ -38,6 +38,6 @@ class Property extends Model
 
     public function images()
     {
-        return $this->hasMany(ImageProperty::class);
+        return $this->hasMany(ImageProperty::class, 'maison_id', 'id');
     }
 }

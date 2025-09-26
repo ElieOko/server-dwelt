@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use App\Http\Resources\AgentCollection;
+use Illuminate\Support\Facades\Storage;
 
 class AgentController extends Controller
 {
@@ -42,16 +43,53 @@ class AgentController extends Controller
                 'role' => 'nullable|string|max:255',
                 'description' => 'nullable|string',
                 'phone' => 'nullable|string|max:20',
-                'email' => 'required|email|unique:users_custom,email',
-                'image' => 'nullable|string',
+                'email' => 'required|email',
+                'images' => 'nullable|array',
+                'images.*.nom' => 'nullable|string|max:255',
+                'images.*.data' => 'nullable|string',
             ]);
 
-            $user = Agent::create($validated);
+            $user = [];
+            if (!empty($request->images)) {
+                foreach ($request->images as $img) {
+                    if (!isset($img['data'])) continue;
 
-            return response()->json([
-                'message' => 'Agent créé avec succès',
-                'data' => $user
-            ], 201);
+                    if (!preg_match('/^data:image\/(\w+);base64,/', $img['data'], $type)) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Format d'image non supporté ou Base64 invalide pour l'image: {$img['nom']}"
+                        ], 422);
+                    }
+
+                    $decodedImage = base64_decode(substr($img['data'], strpos($img['data'], ',') + 1));
+                    if ($decodedImage === false) {
+                        return response()->json([
+                            'success' => false,
+                            'message' => "Erreur lors du décodage de l'image Base64: {$img['nom']}"
+                        ], 422);
+                    }
+
+                    $extension = strtolower($type[1]);
+                    $fileName = 'agent' .  '_' . uniqid() . '.' . $extension;
+                    $path = 'agent/' . $fileName;
+
+                    Storage::disk('public')->put($path, $decodedImage);
+
+                    $user = Agent::create([
+                        'role' => $validated['role'],
+                        "description" => $validated['description'],
+                        'nom'    => $validated['nom'],
+                        'email' => $validated['email'],
+                        'phone' => $validated['phone'],
+                        'image' => $img['data'],
+                        'path'   => $path,
+                    ]);
+                    return response()->json([
+                        'message' => 'Agent créé avec succès',
+                        'data' => $user
+                    ], 201);
+                }
+            }
         } catch (\Illuminate\Validation\ValidationException $e) {
             return response()->json([
                 'message' => 'Erreur de validation',

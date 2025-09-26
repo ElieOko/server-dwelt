@@ -12,7 +12,8 @@ class ImageProperty extends Model
     protected $fillable = [
         'maison_id',
         'nom',
-        'path'
+        'path',
+        'is_active'
     ];
 
     public function property()

@@ -13,6 +13,9 @@ class CityController extends Controller
     public function index()
     {
         //
+        $data = City::all();
+        $response = $data;
+        return  response(["cities" => $response], 201);
     }
 
     /**

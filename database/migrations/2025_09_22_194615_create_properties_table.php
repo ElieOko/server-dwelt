@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
+            $table->string('nom')->unique();
             // $table->json('piece')->nullable(); // stocker les pièces [{nom,nombre}]
             $table->json('caracteristique')->nullable(); // [{nom}]
             $table->string('measure')->nullable();
             $table->unsignedBigInteger('agentId')->nullable();
             $table->unsignedBigInteger('cityId')->nullable();
             $table->unsignedBigInteger('communeId')->nullable();
-            $table->unsignedBigInteger('propertyId')->nullable();
+            $table->unsignedBigInteger('propertyTypeId')->nullable();
             $table->unsignedBigInteger('statusPropertyId')->nullable();
             $table->boolean('isDisponible')->nullable()->default(true);
             $table->string('superficie')->nullable();
@@ -32,6 +32,7 @@ return new class extends Migration
             $table->integer('cuisine')->nullable();
             $table->integer('garage')->nullable();
             $table->integer('chambre')->nullable();
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }

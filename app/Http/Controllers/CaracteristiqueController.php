@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commune;
+use App\Models\Caracteristique;
 use Illuminate\Http\Request;
 
-class CommuneController extends Controller
+class CaracteristiqueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,9 @@ class CommuneController extends Controller
     public function index()
     {
         //
-        $data = Commune::all();
+        $data = Caracteristique::all();
         $response = $data;
-        return  response(["communes" => $response], 201);
+        return  response(["value" => $response], 201);
     }
 
     /**
@@ -31,13 +31,21 @@ class CommuneController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $data = Caracteristique::create($validated);
+
+        return response()->json([
+            'message' => 'Type de proprièté créé avec succès',
+            'data' => $data
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Commune $commune)
+    public function show(Caracteristique $caracteristique)
     {
         //
     }
@@ -45,7 +53,7 @@ class CommuneController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Commune $commune)
+    public function edit(Caracteristique $caracteristique)
     {
         //
     }
@@ -53,7 +61,7 @@ class CommuneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commune $commune)
+    public function update(Request $request, Caracteristique $caracteristique)
     {
         //
     }
@@ -61,7 +69,7 @@ class CommuneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commune $commune)
+    public function destroy(Caracteristique $caracteristique)
     {
         //
     }

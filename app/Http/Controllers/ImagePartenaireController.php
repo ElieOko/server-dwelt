@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commune;
+use App\Models\ImagePartenaire;
 use Illuminate\Http\Request;
 
-class CommuneController extends Controller
+class ImagePartenaireController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,6 @@ class CommuneController extends Controller
     public function index()
     {
         //
-        $data = Commune::all();
-        $response = $data;
-        return  response(["communes" => $response], 201);
     }
 
     /**
@@ -37,7 +34,7 @@ class CommuneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Commune $commune)
+    public function show(ImagePartenaire $imagePartenaire)
     {
         //
     }
@@ -45,7 +42,7 @@ class CommuneController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Commune $commune)
+    public function edit(ImagePartenaire $imagePartenaire)
     {
         //
     }
@@ -53,7 +50,7 @@ class CommuneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commune $commune)
+    public function update(Request $request, ImagePartenaire $imagePartenaire)
     {
         //
     }
@@ -61,7 +58,7 @@ class CommuneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commune $commune)
+    public function destroy(ImagePartenaire $imagePartenaire)
     {
         //
     }

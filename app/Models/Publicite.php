@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Partenaire extends Model
+class Publicite extends Model
 {
     //
     protected $fillable = [

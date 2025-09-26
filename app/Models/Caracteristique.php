@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Partenaire extends Model
+class Caracteristique extends Model
 {
     //
     protected $fillable = [
-        'name',
-        'image',
-        'path',
+        "name",
         'is_active'
     ];
 }

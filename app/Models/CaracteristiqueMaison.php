@@ -4,13 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Partenaire extends Model
+class CaracteristiqueMaison extends Model
 {
     //
     protected $fillable = [
-        'name',
-        'image',
-        'path',
-        'is_active'
+        "maison_id",
+        "caracteristique_id",
     ];
 }

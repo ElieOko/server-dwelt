@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('maison_id');
             $table->string('nom');    // nom du fichier
             $table->string('path');
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }

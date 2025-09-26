@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Commune;
+use App\Models\StatusProperty;
 use Illuminate\Http\Request;
 
-class CommuneController extends Controller
+class StatusPropertyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,9 +13,9 @@ class CommuneController extends Controller
     public function index()
     {
         //
-        $data = Commune::all();
+        $data = StatusProperty::all();
         $response = $data;
-        return  response(["communes" => $response], 201);
+        return response(["value" => $response], 201);
     }
 
     /**
@@ -37,7 +37,7 @@ class CommuneController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Commune $commune)
+    public function show(StatusProperty $statusProperty)
     {
         //
     }
@@ -45,7 +45,7 @@ class CommuneController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Commune $commune)
+    public function edit(StatusProperty $statusProperty)
     {
         //
     }
@@ -53,7 +53,7 @@ class CommuneController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Commune $commune)
+    public function update(Request $request, StatusProperty $statusProperty)
     {
         //
     }
@@ -61,7 +61,7 @@ class CommuneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Commune $commune)
+    public function destroy(StatusProperty $statusProperty)
     {
         //
     }

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('communes', function (Blueprint $table) {
+        Schema::create('caracteristique_maisons', function (Blueprint $table) {
             $table->id();
-            $table->string("name")->unique();
-            $table->foreignId('city_id')->nullable()->index();
-            $table->boolean("is_active")->default(true);
+            $table->unsignedBigInteger('maison_id');
+            $table->unsignedBigInteger('caracteristique_id');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('communes');
+        Schema::dropIfExists('caracteristique_maisons');
     }
 };

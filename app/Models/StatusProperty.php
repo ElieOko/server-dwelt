@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Property;
 use Illuminate\Database\Eloquent\Model;
 
-class Partenaire extends Model
+class StatusProperty extends Model
 {
     //
     protected $fillable = [
         'name',
-        'image',
-        'path',
         'is_active'
     ];
+    public function property()
+    {
+        return $this->hasMany(Property::class);
+    }
 }

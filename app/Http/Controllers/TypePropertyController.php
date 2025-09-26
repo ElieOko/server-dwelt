@@ -13,6 +13,9 @@ class TypePropertyController extends Controller
     public function index()
     {
         //
+        $data = TypeProperty::all();
+        $response = $data;
+        return response(["type_property" => $response], 201);
     }
 
     /**
@@ -29,6 +32,15 @@ class TypePropertyController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+        ]);
+        $data = TypeProperty::create($validated);
+
+        return response()->json([
+            'message' => 'Type de proprièté créé avec succès',
+            'data' => $data
+        ], 201);
     }
 
     /**

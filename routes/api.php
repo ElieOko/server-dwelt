@@ -19,7 +19,7 @@ Route::get('/maisons/all', [PropertyController::class, 'index']);
 Route::get('/maisons', [PropertyController::class, 'getAll']);
 Route::get('/maisons/{id}', [PropertyController::class, 'show']);
 Route::put('/maisons/{id}', [PropertyController::class, 'update']); //
-Route::delete('/maisons/{id}', [PropertyController::class, 'destroy']);
+Route::get('/maisons/destroy/{id}', [PropertyController::class, 'destroy']);
 Route::post('/agents', [AgentController::class, 'store']);
 Route::get('/agents/all', [AgentController::class, 'index']);
 Route::get('/city', [CityController::class, 'index']);

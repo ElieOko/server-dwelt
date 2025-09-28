@@ -216,8 +216,15 @@ class PropertyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Property $property)
+    public function destroy($id)
     {
-        //
+        $property = Property::findOrFail($id);
+        // Supprimer la propriété
+        $property->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Propriété supprimée avec succès'
+        ]);
     }
 }

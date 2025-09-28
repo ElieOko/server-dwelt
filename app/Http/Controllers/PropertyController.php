@@ -18,6 +18,13 @@ class PropertyController extends Controller
     public function index()
     {
         //
+        $data = Property::with('images', 'status_property', 'city', 'commune', 'agent', 'country', 'type_property')->where('isDisponible', true)->orderBy('id', 'desc')->get();
+        $response = $data;
+        return  response(["data" => $response], 201);
+    }
+    public function getAll()
+    {
+        //
         $data = Property::with('images', 'status_property', 'city', 'commune', 'agent', 'country', 'type_property')->orderBy('id', 'desc')->get();
         $response = $data;
         return  response(["data" => $response], 201);
@@ -159,24 +166,24 @@ class PropertyController extends Controller
             // Validation des champs (sans images)
             $validated = $request->validate([
                 'nom' => 'required|string|max:255',
-                'caracteristique' => 'nullable|array',
-                'caracteristique.*.nom' => 'required|string|max:255',
-                'measure' => 'nullable|string|max:50',
-                'agentId' => 'required|integer',
-                'cityId' => 'required|integer',
-                'communeId' => 'required|integer',
-                'propertyTypeId' => 'required|integer',
-                'partPayed' => 'nullable|string',
-                'statusPropertyId' => 'nullable|integer',
+                // 'caracteristique' => 'nullable|array',
+                // 'caracteristique.*.nom' => 'required|string|max:255',
+                // 'measure' => 'nullable|string|max:50',
+                // 'agentId' => 'required|integer',
+                // 'cityId' => 'required|integer',
+                // 'communeId' => 'required|integer',
+                // 'propertyTypeId' => 'required|integer',
+                // 'partPayed' => 'nullable|string',
+                // 'statusPropertyId' => 'nullable|integer',
                 'isDisponible' => 'required|boolean', // Ajout ici
-                'superficie' => 'nullable|string|max:50',
-                'prix' => 'required|numeric|min:0',
-                'countryId' => 'required|integer',
-                'codePostal' => 'nullable|string|max:20',
-                'salleBain' => 'nullable|integer|min:0',
-                'cuisine' => 'nullable|integer|min:0',
-                'garage' => 'nullable|integer|min:0',
-                'chambre' => 'nullable|integer|min:0',
+                // 'superficie' => 'nullable|string|max:50',
+                // 'prix' => 'required|numeric|min:0',
+                // 'countryId' => 'required|integer',
+                // 'codePostal' => 'nullable|string|max:20',
+                // 'salleBain' => 'nullable|integer|min:0',
+                // 'cuisine' => 'nullable|integer|min:0',
+                // 'garage' => 'nullable|integer|min:0',
+                // 'chambre' => 'nullable|integer|min:0',
             ]);
 
             // Mise à jour

@@ -115,9 +115,28 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Property $property)
+    public function show(int $id)
     {
-        //
+        // Récupère la propriété avec toutes ses relations
+        $property = Property::with([
+            'images',
+            'status_property',
+            'city',
+            'commune',
+            'agent',
+            'country',
+            'type_property'
+        ])->find($id); // ou ->where('id', $id)->first();
+
+        if (!$property) {
+            return response()->json([
+                'message' => 'Property not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'data' => $property
+        ], 200);
     }
 
     /**

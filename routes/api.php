@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/maisons', [PropertyController::class, 'store']);
 Route::get('/maisons/all', [PropertyController::class, 'index']);
 Route::get('/maisons/{id}', [PropertyController::class, 'show']);
+Route::put('/maisons/{id}', [PropertyController::class, 'update']);
 Route::post('/agents', [AgentController::class, 'store']);
 Route::get('/agents/all', [AgentController::class, 'index']);
 Route::get('/city', [CityController::class, 'index']);

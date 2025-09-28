@@ -150,10 +150,61 @@ class PropertyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Property $property)
+    public function update(Request $request, $id)
     {
-        //
+        try {
+            // Récupérer la propriété existante
+            $property = Property::findOrFail($id);
+
+            // Validation des champs (sans images)
+            $validated = $request->validate([
+                'nom' => 'required|string|max:255',
+                'caracteristique' => 'nullable|array',
+                'caracteristique.*.nom' => 'required|string|max:255',
+                'measure' => 'nullable|string|max:50',
+                'agentId' => 'required|integer',
+                'cityId' => 'required|integer',
+                'communeId' => 'required|integer',
+                'propertyTypeId' => 'required|integer',
+                'partPayed' => 'nullable|string',
+                'statusPropertyId' => 'nullable|integer',
+                'isDisponible' => 'required|boolean', // Ajout ici
+                'superficie' => 'nullable|string|max:50',
+                'prix' => 'required|numeric|min:0',
+                'countryId' => 'required|integer',
+                'codePostal' => 'nullable|string|max:20',
+                'salleBain' => 'nullable|integer|min:0',
+                'cuisine' => 'nullable|integer|min:0',
+                'garage' => 'nullable|integer|min:0',
+                'chambre' => 'nullable|integer|min:0',
+            ]);
+
+            // Mise à jour
+            $property->update($validated);
+
+            return response()->json([
+                'success' => true,
+                'maison' => $property
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Propriété introuvable'
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue: ' . $e->getMessage()
+            ], 500);
+        }
     }
+
+
 
     /**
      * Remove the specified resource from storage.

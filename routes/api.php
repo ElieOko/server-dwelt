@@ -30,6 +30,7 @@ Route::get('/agents/all', [AgentController::class, 'index']);
 Route::get('/city', [CityController::class, 'index']);
 Route::get('/country', [CountryController::class, 'index']);
 Route::get('/publicite/destroy/{id}', [PropertyController::class, 'destroy']);
+Route::get('/agent/destroy/{id}', [AgentController::class, 'destroy']);
 Route::get('/publicite', [PubliciteController::class, 'index']);
 Route::post('/publicite', [PubliciteController::class, 'store']);
 Route::get('/status/property', [StatusPropertyController::class, 'index']);
@@ -38,6 +39,7 @@ Route::get('/caracteristique', [CaracteristiqueController::class, 'index']);
 Route::get('/partenaire', [PartenaireController::class, 'index']);
 Route::post('/partenaire', [PartenaireController::class, 'store']);
 Route::get('/commune', [CommuneController::class, 'index']);
+Route::get('/action', [PropertyController::class, 'create']);
 Route::middleware(['auth:sanctum'])->group(function () {
     // Route::resource('client', ClientController::class)->only(['index', 'store']);
 });

@@ -37,6 +37,12 @@ class PropertyController extends Controller
     public function create()
     {
         //
+        Property::where('agentId', 1)->update(
+            ["agentId" => 3]
+        );
+        return response()->json([
+            'message' => "success action"
+        ]);
     }
 
     /**
@@ -159,6 +165,13 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function updateAll(Request $request, $id)
+    {
+        // try {
+        // Récupérer la propriété existante
+        $property = Property::findOrFail(1);
+        // }
+    }
     public function edit(Property $property)
     {
         //

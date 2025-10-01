@@ -27,10 +27,7 @@ class AgentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
+    public function create() {}
 
     /**
      * Store a newly created resource in storage.
@@ -117,16 +114,49 @@ class AgentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Agent $agent)
+    public function update(Request $request, $id)
     {
-        //
+        $property = Agent::findOrFail($id);
+
+        // Validation des champs (sans images)
+        $validated = $request->validate([
+            'nom' => 'required|string|max:255',
+            // 'caracteristique' => 'nullable|array',
+            // 'description.*.nom' => 'required|string|max:255',
+            // 'measure' => 'nullable|string|max:50',
+            // 'agentId' => 'required|integer',
+            // 'cityId' => 'required|integer',
+            // 'communeId' => 'required|integer',
+            // 'propertyTypeId' => 'required|integer',
+            'email' => 'nullable|string',
+            // 'statusPropertyId' => 'nullable|integer',
+            'isDisponible' => 'required|boolean', // Ajout ici
+            'description' => 'nullable|string',
+            // 'prix' => 'required|numeric|min:0',
+            // 'countryId' => 'required|integer',
+            // 'codePostal' => 'nullable|string|max:20',
+            // 'salleBain' => 'nullable|integer|min:0',
+            // 'cuisine' => 'nullable|integer|min:0',
+            // 'garage' => 'nullable|integer|min:0',
+            // 'chambre' => 'nullable|integer|min:0',
+        ]);
+
+        // Mise à jour
+        $property->update($validated);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Agent $agent)
+    public function destroy($id)
     {
-        //
+        $property = Agent::findOrFail($id);
+        // Supprimer la propriété
+        $property->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Agent supprimée avec succès'
+        ]);
     }
 }

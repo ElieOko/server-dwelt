@@ -55,7 +55,7 @@ class PropertyController extends Controller
                 "code" => 'required|string',
             ]);
 
-            $validated = Validator::make($request->all, [
+            $validated = $request->validate([
                 'nom' => 'required|string|max:255',
                 'caracteristique' => 'nullable|array',
                 'caracteristique.*.nom' => 'required|string|max:255',
@@ -80,13 +80,13 @@ class PropertyController extends Controller
                 'chambre' => 'nullable|integer|min:0',
             ]);
 
-            if ($validated->stopOnFirstFailure()->fails()) {
-                return response()->json([
-                    'message' => $validated->errors()
-                ], 402);
-            }
-            $field = $validated->validated();
-            $property = Property::create($field);
+            // if ($validated->stopOnFirstFailure()->fails()) {
+            //     return response()->json([
+            //         'message' => $validated->errors()
+            //     ], 402);
+            // }
+            // $field = $validated->validated();
+            $property = Property::create($validated);
 
             // Traitement des images si présentes
 

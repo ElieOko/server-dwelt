@@ -35,6 +35,7 @@ class PubliciteController extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
+                'description' => 'nullable|string',
                 'images' => 'nullable|array',
                 'images.*.nom' => 'nullable|string|max:255',
                 'images.*.data' => 'nullable|string',

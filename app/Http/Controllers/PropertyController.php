@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\ImageProperty;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class PropertyController extends Controller
@@ -44,8 +45,11 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         try {
+            Validator::make($request->all(), [
+                "code" => 'required|string',
+            ]);
 
-            $validated = $request->validate([
+            $validated = Validator::make($request->all, [
                 'nom' => 'required|string|max:255',
                 'caracteristique' => 'nullable|array',
                 'caracteristique.*.nom' => 'required|string|max:255',
@@ -70,7 +74,13 @@ class PropertyController extends Controller
                 'chambre' => 'nullable|integer|min:0',
             ]);
 
-            $property = Property::create($validated);
+            if ($validated->stopOnFirstFailure()->fails()) {
+                return response()->json([
+                    'message' => $validated->errors()
+                ], 402);
+            }
+            $field = $validated->validated();
+            $property = Property::create($field);
 
             // Traitement des images si présentes
 
@@ -107,9 +117,8 @@ class PropertyController extends Controller
                 }
             }
 
-
             return response()->json([
-                'success' => true,
+                'message' => "enregistrement réussi avec succès",
                 'maison' => $property
             ]);
         } catch (ValidationException $e) {

@@ -51,9 +51,9 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
         try {
-            Validator::make($request->all(), [
-                "code" => 'required|string',
-            ]);
+            // Validator::make($request->all(), [
+            //     "code" => 'required|string',
+            // ]);
 
             $validated = $request->validate([
                 'nom' => 'required|string|max:255',

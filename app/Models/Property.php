@@ -8,6 +8,7 @@ use App\Models\Commune;
 use App\Models\Country;
 use App\Models\TypeProperty;
 use App\Models\ImageProperty;
+use App\Models\PropertyVisit;
 use App\Models\StatusProperty;
 use Illuminate\Database\Eloquent\Model;
 
@@ -71,5 +72,10 @@ class Property extends Model
     public function images()
     {
         return $this->hasMany(ImageProperty::class, 'maison_id', 'id');
+    }
+
+    public function property_visit()
+    {
+        return $this->hasMany(PropertyVisit::class, 'maison_id', 'id');
     }
 }

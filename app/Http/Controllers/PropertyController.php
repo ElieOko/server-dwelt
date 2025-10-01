@@ -58,6 +58,7 @@ class PropertyController extends Controller
                 'communeId' => 'required|integer',
                 'propertyTypeId' => 'required|integer',
                 'partPayed' => 'nullable|string',
+                'description' => 'nullable|string',
                 'statusPropertyId' => 'nullable|integer',
                 'superficie' => 'nullable|string|max:50',
                 'prix' => 'required|numeric|min:0',
@@ -152,6 +153,20 @@ class PropertyController extends Controller
     public function edit(Property $property)
     {
         //
+    }
+    public function activation(Request $request, $id)
+    {
+        //
+        $property = Property::findOrFail($id);
+        $validated = $request->validate([
+            'isDisponible' => 'required|boolean',
+        ]);
+
+        $property->update($validated);
+        return response()->json([
+            'message' => $validated['isDisponible'] ? "la propriété est activé avec succès" : "la propriété est desactivé avec succès",
+            'maison' => $property
+        ]);
     }
 
     /**

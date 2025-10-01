@@ -1,20 +1,25 @@
 <?php
 
-use App\Http\Controllers\AgentController;
-use App\Http\Controllers\CaracteristiqueController;
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\CommuneController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\PartenaireController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\PubliciteController;
-use App\Http\Controllers\StatusPropertyController;
-use App\Http\Controllers\TypePropertyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\AgentController;
+use App\Http\Controllers\CommuneController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DemandeController;
+use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PubliciteController;
+use App\Http\Controllers\PartenaireController;
+use App\Http\Controllers\TypePropertyController;
+use App\Http\Controllers\StatusPropertyController;
+use App\Http\Controllers\CaracteristiqueController;
+use App\Http\Controllers\PropertyVisitController;
 
 Route::post('/maisons', [PropertyController::class, 'store']);
+Route::post('/demande', [DemandeController::class, 'store']);
+Route::post('/visit', [PropertyVisitController::class, 'store']);
+Route::get('/visit', [PropertyVisitController::class, 'index']);
+Route::get('/demande', [DemandeController::class, 'index']);
 Route::get('/maisons/all', [PropertyController::class, 'index']);
 Route::get('/maisons', [PropertyController::class, 'getAll']);
 Route::get('/maisons/{id}', [PropertyController::class, 'show']);

@@ -29,6 +29,7 @@ Route::post('/agents', [AgentController::class, 'store']);
 Route::get('/agents/all', [AgentController::class, 'index']);
 Route::get('/city', [CityController::class, 'index']);
 Route::get('/country', [CountryController::class, 'index']);
+Route::get('/publicite/destroy/{id}', [PropertyController::class, 'destroy']);
 Route::get('/publicite', [PubliciteController::class, 'index']);
 Route::post('/publicite', [PubliciteController::class, 'store']);
 Route::get('/status/property', [StatusPropertyController::class, 'index']);

@@ -113,8 +113,16 @@ class PubliciteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Publicite $publicite)
+    public function destroy(Publicite $id)
     {
         //
+        $property = Publicite::findOrFail($id);
+        // Supprimer la propriété
+        $property->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Publicité supprimée avec succès'
+        ]);
     }
 }
